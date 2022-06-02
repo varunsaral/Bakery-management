@@ -25,3 +25,4 @@ class UserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
         fields =  ["email","password"]
+

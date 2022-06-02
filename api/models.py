@@ -51,7 +51,7 @@ class MyUser(AbstractBaseUser):
     REQUIRED_FIELDS = ['name']
 
     def __str__(self):
-        return self.email
+        return self.name
 
     def has_perm(self, perm, obj=None):
         return True
@@ -69,6 +69,9 @@ class Ingredients(models.Model):
     item_cost_price = models.IntegerField()
     item_selling_price = models.IntegerField()
     item_quantity = models.IntegerField()
+    
+    def __str__(self):
+        return f"{self.item_name}"
 
 
 class BakeryItems(models.Model):
@@ -76,12 +79,18 @@ class BakeryItems(models.Model):
     item_ingredients = models.ManyToManyField(
         Ingredients, related_name="ingredient")
     item_description = models.TextField()
+    
+    def __str__(self):
+        return f"{self.item_name}"
 
 
 # Inventory for different admins
 class Inventory(models.Model):
     user = models.ForeignKey(
-        MyUser, on_delete=models.CASCADE, related_name="admins")
+        MyUser, on_delete=models.CASCADE, related_name="admin")
+    
+    def __str__(self):
+        return f"{self.user.name}"
 
 
 # Inventory items and Inventory owner for seperate inventories
@@ -90,11 +99,17 @@ class InventoryItems(models.Model):
         Inventory, on_delete=models.CASCADE, related_name="inventory")
     Ingredients = models.ManyToManyField(
         'Ingredients', related_name="ingredients")
+    
+    def __str__(self):
+        return f"{self.inventory.user.name}'s inventory"
 
 
 class Cart(models.Model):
     user = models.ForeignKey(
         MyUser, on_delete=models.CASCADE, related_name="customer")
+    
+    def __str__(self):
+        return f"{self.user.name}'s cart"
 
 
 class CartOrders(models.Model):
@@ -102,3 +117,6 @@ class CartOrders(models.Model):
         Cart, on_delete=models.CASCADE, related_name='cart')
     items = models.ManyToManyField(BakeryItems, related_name="bakeryitems")
     order_total = models.IntegerField()
+    
+    def __str__(self):
+        return f"{self.cart.user.name}'s cart order"
