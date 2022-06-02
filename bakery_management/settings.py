@@ -21,7 +21,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #User Installed
-    'api'
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -35,6 +37,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bakery_management.urls'
+
+
+REST_FRAMEWORK = {
+    ' DEFAULT_AUTHENTICATION_CLASSES ' : (
+    ' rest_framework_simplejwt.authentication.JWTAuthentication' ,
+) ,
+'DEFAULT_RENDERER_CLASSES'  : ( 'rest_framework.renderers.JSONRenderer' ,)
+}
 
 TEMPLATES = [
     {
