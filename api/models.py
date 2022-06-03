@@ -65,7 +65,7 @@ class MyUser(AbstractBaseUser):
 
 
 class Ingredients(models.Model):
-    item_name = models.CharField(max_length=255)
+    item_name = models.CharField(max_length=255,unique=True)
     item_cost_price = models.IntegerField()
     item_selling_price = models.IntegerField()
     item_quantity = models.IntegerField()
