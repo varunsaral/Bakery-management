@@ -65,7 +65,7 @@ class AddIngredients(APIView):
 #Retreving and creating Bakery items , overridding create method for manytomany object serailzation 
 class BakeryItemView(ModelViewSet):
     authentication_classes=[JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsAdminUser]
     serializer_class = ItemsSerializer
     
     def get_queryset(self):
@@ -88,9 +88,9 @@ class BakeryItemView(ModelViewSet):
 
 #for creating and viewing the inventories 
 class InventoryView(ModelViewSet):
-    authentication_classes = [JWTAuthentication]
     serializer_class = InventorySerializer
-    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated,IsAdminUser]
     
     def get_queryset(self):
         inventories = Inventory.objects.all()
@@ -108,6 +108,8 @@ class InventoryView(ModelViewSet):
 
 class InventoryItemsView(ModelViewSet):
     serializer_class = InventoryItemSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated,IsAdminUser]
     def get_queryset(self):
         inventories_item = InventoryItems.objects.all()
         return inventories_item    

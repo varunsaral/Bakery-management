@@ -1,0 +1,370 @@
+{
+	"info": {
+		"_postman_id": "857a23a2-013b-4f1c-ac81-c3c9b4168a8b",
+		"name": "Bakery management",
+		"description": "Bakery Management app lets an admin manage inventory and lets customer purchase from inventory\r\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Login user(customer/admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Ingredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Add ingredient (admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get bakery items",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjI5NzQ0LCJpYXQiOjE2NTQyMjk0NDQsImp0aSI6ImRkYjc3ZjQyZWYxNzRkYjZhYTI5NDljZjUyNTY3NjcxIiwidXNlcl9pZCI6NH0.OB_k1vO5XuDDeX52RQhot-K7meKmLAjAfcSqr5pSTBU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjI5NzQ0LCJpYXQiOjE2NTQyMjk0NDQsImp0aSI6ImRkYjc3ZjQyZWYxNzRkYjZhYTI5NDljZjUyNTY3NjcxIiwidXNlcl9pZCI6NH0.OB_k1vO5XuDDeX52RQhot-K7meKmLAjAfcSqr5pSTBU",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/user/bakery-item/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"bakery-item",
+								""
+							]
+						},
+						"description": "Get all bakery items (admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bakery Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjMwMjk0LCJpYXQiOjE2NTQyMjk5OTQsImp0aSI6ImQyZjExZmE5ZjA3ODQ3MzhiMzRiNGU3OGJlM2UzN2M1IiwidXNlcl9pZCI6NH0.3vi-L1sQShuO6JWAcAetjzeU8PNCnVv4cI3-uEMX1zU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"item_name\": \"chocolate cheese cake\",\r\n    \"item_ingredients\": [\r\n        {\r\n\r\n            \"item_name\": \"chocolate\",\r\n            \"item_cost_price\": 10,\r\n            \"item_selling_price\": 11,\r\n            \"item_quantity\": 2\r\n        },\r\n        {\r\n\r\n            \"item_name\": \"cheese\",\r\n            \"item_cost_price\": 100,\r\n            \"item_selling_price\": 110,\r\n            \"item_quantity\": 1\r\n        }\r\n    ],\r\n    \"item_description\": \"Chocolate + cheese cake \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/bakery-item/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"bakery-item",
+								""
+							]
+						},
+						"description": "Create bakery item with ingredientes(admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get inventories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjMxMzM5LCJpYXQiOjE2NTQyMzEwMzksImp0aSI6Ijk0OGQyMDRlMjNhODRiZjViYzVjOTJmNGQzMjMxMjM2IiwidXNlcl9pZCI6NH0.mGbd7i_s_cvauDQxTua9V74fGpLVGW3yNxdq_I1gL18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/inventory/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"inventory",
+								""
+							]
+						},
+						"description": "Get all inventories (admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create inventory ",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjMxMzM5LCJpYXQiOjE2NTQyMzEwMzksImp0aSI6Ijk0OGQyMDRlMjNhODRiZjViYzVjOTJmNGQzMjMxMjM2IiwidXNlcl9pZCI6NH0.mGbd7i_s_cvauDQxTua9V74fGpLVGW3yNxdq_I1gL18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"varunsaral47@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/inventory/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"inventory",
+								""
+							]
+						},
+						"description": "Create inventory for user(admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inventories Item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Get items in the inventory"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Inventories Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n \r\n        \"email\":\"test@test.com\",\r\n        \"Ingredients\": [\r\n            {\r\n\r\n                \"item_name\": \"chocolate\",\r\n                \"item_cost_price\": 10,\r\n                \"item_selling_price\": 11,\r\n                \"item_quantity\": 2\r\n            },\r\n            {\r\n                \"id\": 2,\r\n                \"item_name\": \"cheese\",\r\n                \"item_cost_price\": 100,\r\n                \"item_selling_price\": 110,\r\n                \"item_quantity\": 1\r\n            }\r\n        ]\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/inventory-items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"inventory-items",
+								""
+							]
+						},
+						"description": "creating inventories with items and ingredients(admin)"
+					},
+					"response": []
+				}
+			],
+			"description": "Admin routes"
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \"name\":\"test2\",\r\n    \"email\":\"test2@gmail.com\",\r\n    \"password\":\"test2\",\r\n    \"password2\":\"test2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"register",
+								""
+							]
+						},
+						"description": "Create user(customer)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Get cart of a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjM4Nzc0LCJpYXQiOjE2NTQyMzg0NzQsImp0aSI6ImViOGI3ZmI4YjViZDRlY2M4MmQzNDNmMjRkYjFkZWJjIiwidXNlcl9pZCI6NH0.8PrSDnJ9K4VdFNgpPvI9w7xRV_EkD14sjzU3KC53HDw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"test@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/cart/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"cart",
+								""
+							]
+						},
+						"description": "Create cart of user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Customer(user) routes"
+		}
+	]
+}
