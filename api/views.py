@@ -132,7 +132,7 @@ class InventoryItemsView(ModelViewSet):
         
 class CartView(ModelViewSet):
     authentication_classes = [JWTAuthentication]
-    serializer_class = InventorySerializer
+    serializer_class = CartSerializer
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
@@ -148,4 +148,6 @@ class CartView(ModelViewSet):
         
         serializer = CartSerializer(new_cart)
         return Response(serializer.data)
-
+    
+class CartItemView(ModelViewSet):
+    
