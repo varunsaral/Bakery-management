@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from api.models import BakeryItems, Cart, Ingredients, Inventory, InventoryItems, MyUser
-from .serializers import IngredientSerializer, InventoryItemSerializer, InventorySerializer, UserCreateSerializer, UserLoginSerializer,ItemsSerializer,CartSerializer
+from api.models import BakeryItems, Cart, CartOrders, Ingredients, Inventory, InventoryItems, MyUser
+from .serializers import CartItemSerializer, IngredientSerializer, InventoryItemSerializer, InventorySerializer, UserCreateSerializer, UserLoginSerializer,ItemsSerializer,CartSerializer
 from .renderer import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
@@ -118,7 +118,6 @@ class InventoryItemsView(ModelViewSet):
         data = request.data
         
         inventory_obj = Inventory.objects.get(user__email=data["email"])
-        print(inventory_obj)
         new_inventory_item = InventoryItems.objects.create(inventory=inventory_obj)
         new_inventory_item.save()
         
@@ -150,4 +149,24 @@ class CartView(ModelViewSet):
         return Response(serializer.data)
     
 class CartItemView(ModelViewSet):
+    serializer_class = CartItemSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        cart_order = CartOrders.objects.all()
+        return cart_order
     
+    def create(self,request,*args, **kwargs):
+        data = request.data
+        
+        cart_obj = Cart.objects.get(user__email=data["email"])
+        new_cart_order = CartOrders(cart=cart_obj,order_total=data["order_total"])
+        new_cart_order.save()
+        
+        for item in data["items"]:
+            item_obj = BakeryItems.objects.get(item_name=item["item_name"])
+            new_cart_order.items.add(item_obj)
+            
+        serialzer = CartItemSerializer(new_cart_order)
+        return Response(serialzer.data)
+              

@@ -357,8 +357,28 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"test@test.com\",\r\n    \"items\":[\r\n        {\r\n            \"item_name\":\"chocolate cheese\"\r\n        }\r\n    ],\r\n    \"order_total\":\"200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8000/api/user/cart-order/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"cart-order",
+								""
+							]
 						}
 					},
 					"response": []

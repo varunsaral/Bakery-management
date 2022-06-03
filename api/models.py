@@ -116,7 +116,7 @@ class CartOrders(models.Model):
     cart = models.ForeignKey(
         Cart, on_delete=models.CASCADE, related_name='cart')
     items = models.ManyToManyField(BakeryItems, related_name="bakeryitems")
-    order_total = models.IntegerField()
+    order_total = models.IntegerField(null=True,blank=True)
     
     def __str__(self):
         return f"{self.cart.user.name}'s cart order"

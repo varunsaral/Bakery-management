@@ -1,7 +1,7 @@
 from dataclasses import field
 from imp import source_from_cache
 from rest_framework import serializers
-from .models import BakeryItems, Cart, Ingredients, Inventory, InventoryItems, MyUser
+from .models import BakeryItems, Cart, CartOrders, Ingredients, Inventory, InventoryItems, MyUser
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -77,3 +77,11 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model=Cart
         fields=["user"]
+
+class CartItemSerializer(serializers.ModelSerializer):
+    cart = CartSerializer()
+    items = ItemsSerializer(many=True)
+    
+    class Meta:
+        model=CartOrders
+        fields = ["cart","items","order_total"]
