@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from api.models import BakeryItems, Ingredients, Inventory, MyUser
-from .serializers import IngredientSerializer, InventorySerializer, UserCreateSerializer, UserLoginSerializer,ItemsSerializer
+from api.models import BakeryItems, Cart, Ingredients, Inventory, InventoryItems, MyUser
+from .serializers import IngredientSerializer, InventoryItemSerializer, InventorySerializer, UserCreateSerializer, UserLoginSerializer,ItemsSerializer,CartSerializer
 from .renderer import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
@@ -100,18 +100,50 @@ class InventoryView(ModelViewSet):
         data = request.data
         
         user_obj = MyUser.objects.get(email=data["email"])
-        print(user_obj)
         new_inventory = Inventory.objects.create(user=user_obj)
         new_inventory.save()
         
         serializer = InventorySerializer(new_inventory)
         return Response(serializer.data)
 
+class InventoryItemsView(ModelViewSet):
+    serializer_class = InventoryItemSerializer
+    def get_queryset(self):
+        inventories_item = InventoryItems.objects.all()
+        return inventories_item    
 
-
-
+    def create(self,request,*args, **kwargs):
+        data = request.data
         
+        inventory_obj = Inventory.objects.get(user__email=data["email"])
+        print(inventory_obj)
+        new_inventory_item = InventoryItems.objects.create(inventory=inventory_obj)
+        new_inventory_item.save()
+        
+        for ingredients in data["Ingredients"]:
+            ingredient_obj = Ingredients.objects.get(item_name=ingredients["item_name"])
+            new_inventory_item.Ingredients.add(ingredient_obj)
+        
+        serializer = InventoryItemSerializer(new_inventory_item)
+        return Response(serializer.data)
+        
+        
+class CartView(ModelViewSet):
+    authentication_classes = [JWTAuthentication]
+    serializer_class = InventorySerializer
+    permission_classes = [IsAuthenticated]
     
+    def get_queryset(self):
+        carts = Cart.objects.all()
+        return carts
     
-    
-    
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        
+        user_obj = MyUser.objects.get(email=data["email"])
+        new_cart = Cart.objects.create(user=user_obj)
+        new_cart.save()
+        
+        serializer = CartSerializer(new_cart)
+        return Response(serializer.data)
+
